@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load staticfiles %}
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="renderer" content="webkit">
+    <title>{% block title %}标题{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'AmazeUI-2.4.2/assets/css/amazeui.css' %}"/>
+    <link rel="stylesheet" href="{% static 'AmazeUI-2.4.2/assets/css/admin.css' %}"/>
+    <script src="{% static 'AmazeUI-2.4.2/assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'AmazeUI-2.4.2/assets/js/amazeui.min.js' %}"></script>
+    <script src="{% static 'js/jquery.cookie.js' %}"></script>
+    {% block link %}{% endblock link %}
+</head>
+<body>
+
+{% block header %}
+    <div class="hmtop">
+        <!--顶部导航条 -->
+        <div class="am-container header">
+            <ul class="message-l">
+                <li class="topMessage">
+                    <div class="menu-hd">
+                        {% if user.is_authenticated %}
+                            {{ user.username }} | <a href="{% url 'log_out' %}">注销</a>
+                        {% else %}
+                            <a href="{% url 'sign_in' %}" target="_top" class="h">亲，请登录</a>
+                            <a href="{% url 'sign_up' %}" target="_top">免费注册</a>
+                        {% endif %}
+                    </div>
+                </li>
+            </ul>
+            <ul class="message-r">
+                <li class="topMessage home">
+                    <div class="menu-hd">
+                        <a href="{% url 'index' %}" target="_top" class="h">商城首页</a>
+                    </div>
+                </li>
+                <li class="topMessage my-shangcheng">
+                    <div class="menu-hd MyShangcheng">
+                        <a href="#" target="_top">
+                            <i class="am-icon-user am-icon-fw"></i>个人中心</a>
+                    </div>
+                </li>
+                <li class="topMessage mini-cart">
+                    <div class="menu-hd">
+                        <a id="mc-menu-hd" href="{% url 'show_cart' %}" target="_top">
+                            <i class="am-icon-shopping-cart  am-icon-fw"></i>
+                            <span>购物车</span>
+                            <strong id="J_MiniCartNum" class="h">0</strong>
+                        </a>
+                    </div>
+                </li>
+                <li class="topMessage favorite">
+                    <div class="menu-hd">
+                        <a href="#" target="_top">
+                            <i class="am-icon-heart am-icon-fw"></i>
+                            <span>收藏夹</span>
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!--悬浮搜索框-->
+        <div class="nav white">
+            <div class="logo">
+                <a href="{% url 'index' %}"><img src="{% static 'images/logo.png' %}"/></a>
+            </div>
+            <div class="logoBig">
+                <a href="{% url 'index' %}"><img src="{% static 'images/logobig.png' %}"/></a>
+            </div>
+
+            <div class="search-bar pr">
+                <a name="index_none_header_sysc" href="#"></a>
+                <form action="{% url 'search' %}" method="get">
+                    <input id="searchInput" name="keywords" type="text" placeholder="搜索"
+                           autocomplete="off">
+                    <input id="ai-topsearch" class="submit am-btn" value="搜索" index="1" type="submit">
+                </form>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <b class="line"></b>
+{% endblock header %}
+
+
+{% block content %}内容{% endblock content %}
+
+</body>
+</html>

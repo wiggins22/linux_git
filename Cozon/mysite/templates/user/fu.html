@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head?
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load staticfiles %}
+    <title>评论</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="{% static 'css/amazeui.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+    <script src="{% static 'js/wangEditor.min.js' %}"></script>
+    <script src="{% static 'js/write.js' %}"></script>
+    <script src="{% static 'js/jquery.cookie.js' %}"></script>
+</head>
+
+<body>
+
+
+<!--顶部导航条 -->
+<div class="hmtop">
+    <!--顶部导航条 -->
+    <div class="am-container header">
+        {% if user.is_authenticated %}
+            <div class="hmtop">
+            <div class="am-container header">
+            <ul class="message-l">
+                <div class="topMessage">
+                    <div class="menu-hd">
+                        <a target="_top" class="h">{{ user.username }}</a>
+                        <a href="{% url 'logoout' %}" target="_top">注销</a>
+                    </div>
+
+                </div>
+            </ul>
+
+        {% else %}
+            <ul class="message-l">
+                <div class="topMessage">
+                    <div class="menu-hd">
+                        <a href="{% url 'sign_in' %}" target="_top" class="h">亲，请登录</a>
+                        <a href="{% url 'sign_up' %}" target="_top">免费注册</a>
+                    </div>
+                </div>
+            </ul>
+        {% endif %}
+  </ul>
+  <ul class="message-r">
+    <div class="topMessage home"><div class="menu-hd"><a href="{% url 'index' %}" target="_top" class="h">商城首页</a></div></div>
+    <div class="topMessage my-shangcheng"><div class="menu-hd MyShangcheng"><a href="#" target="_top"><i class="am-icon-user am-icon-fw"></i>个人中心</a></div></div>
+    <div class="topMessage mini-cart"><div class="menu-hd"><a id="mc-menu-hd" href="{% url 'show_cart' %}" target="_top"><i class="am-icon-shopping-cart  am-icon-fw"></i><span>购物车</span><strong id="J_MiniCartNum" class="h">{{ con }}</strong></a></div></div>
+    <div class="topMessage favorite"><div class="menu-hd"><a href="#" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>收藏夹</span></a></div>
+  </ul>
+</div>
+
+<!--悬浮搜索框-->
+
+<div class="nav white">
+	<div class="logo"><img src="{% static 'images/logo.png' %}" /></div>
+    <div class="logoBig">
+      <li><img src="{% static 'images/logobig.png' %}" /></li>
+    </div>
+
+    <div class="search-bar pr">
+        <a name="index_none_header_sysc" href="#"></a>
+        <form>
+        <input id="searchInput" name="keywords type="text" placeholder="搜索" autocomplete="off">
+        <input id="ai-topsearch" class="submit" value="搜索" index="1" type="submit"></form>
+    </div>
+</div>
+
+<div class="editor-right">
+            <div class="editor-top am-margin-lg">
+                <div class="am-input-group">
+                    <input type="text" id="title" class="article-title">
+                    <span class="am-input-group-btn">
+                    <button class="am-btn am-btn-danger am-round am-icon-plus" id="btn_post" type="button" style="border: none;"> 发布评论</button>
+                </span>
+                </div>
+            </div>
+            <div class="editor-toolbar"></div>
+            <div class="editor-text" style="overflow: auto;">
+                <p>{{ art_current.content | safe }}</p>
+            </div>
+        </div>
+    </div>
+    <script >
+        <script src="{% static 'js/wangEditor.min.js' %}"></script>
+        <script src="{% static 'js/write.js' %}"></script>
+        <script src="{% static 'js/jquery.cookie.js' %}"></script>
+        <script type="text/javascript">
+
+            let E = window.wangEditor
+            let editor = new E('.editor-toolbar', '.editor-text')
+        editor.customConfig.debug = true
+        // 配置服务器端图片上传地址
+        editor.customConfig.uploadImgServer = "{% url 'upload_ajax' %}"
+        editor.customConfig.uploadFileName = 'img'
+        editor.customConfig.zIndex = 100
+        editor.customConfig.uploadImgHeaders = {
+            'X-CSRFToken': $.cookie('csrftoken')
+        }
+        editor.create()
+        editor.txt.html('{{ art_current.content | safe }}')
+    </script>
+                <div class="footer" >
+                 <div class="footer-hd">
+                 <p>
+                 <a href="#">恒望科技</a>
+                 <b>|</b>
+                 <a href="#">商城首页</a>
+                 <b>|</b>
+                 <a href="#">支付宝</a>
+                 <b>|</b>
+                 <a href="#">物流</a>
+                 </p>
+                 </div>
+                 <div class="footer-bd">
+                 <p>
+                 <a href="#">关于恒望</a>
+                 <a href="#">合作伙伴</a>
+                 <a href="#">联系我们</a>
+                 <a href="#">网站地图</a>
+                 <em>© 2015-2025 Hengwang.com 版权所有</em>
+                 </p>
+                 </div>
+                </div>
+
+
+    <body>
+
+                </html>
